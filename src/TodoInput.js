@@ -1,10 +1,15 @@
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
-const TodoInput = ({ onAddTodo }) => {
+const TodoInput = () => {
   const inputEl = useRef(null);
+  const dispatch = useDispatch();
 
   const onClickHandler = () => {
-    onAddTodo(inputEl.current.value);
+    dispatch({
+      type: 'ADD_TODO',
+      payload: { description: inputEl.current.value },
+    });
     inputEl.current.value = '';
   };
 

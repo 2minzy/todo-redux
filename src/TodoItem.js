@@ -1,12 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-const TodoItem = ({
-  description,
-  onRemoveTodo,
-  onToggleTodo,
-  id,
-  completed,
-}) => {
+const TodoItem = ({ description, id, completed }) => {
+  const dispatch = useDispatch();
+
   return (
     <li
       style={{
@@ -18,10 +15,14 @@ const TodoItem = ({
       <input
         type='checkbox'
         checked={completed}
-        onChange={() => onToggleTodo(id)}
+        onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: { id } })}
       />
       <span style={{ flexGrow: 1 }}>{description}</span>
-      <button onClick={() => onRemoveTodo(id)}>X</button>
+      <button
+        onClick={() => dispatch({ type: 'REMOVE_TODO', payload: { id } })}
+      >
+        X
+      </button>
     </li>
   );
 };
